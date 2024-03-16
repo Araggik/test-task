@@ -48,12 +48,16 @@ notificationService.linkComponent(currentText);
 @keyframes show-hide {
     0% {
         bottom: 0.5rem;
-        opacity: 0.7;
+        opacity: 0.4;
+    }
+
+    60% {
+        bottom: 3rem;
+        opacity: 1;
     }
 
     100% {
         bottom: 3rem;
-        opacity: 1;
     }
 }
 </style>

@@ -75,7 +75,7 @@ function registerUser() {
 function callLoginUser() {
     const isSuccessLogin = userService.loginUser({
         login: userLogin.value,
-        password: userLogin.value
+        password: userPassword.value
     });
 
     if (isSuccessLogin) {
@@ -88,7 +88,7 @@ function callLoginUser() {
 function callRegisterUser() {
     const isSuccessRegister = userService.registerUser({
         login: userLogin.value,
-        password: userLogin.value
+        password: userPassword.value
     });
 
     if (isSuccessRegister) {
@@ -140,8 +140,8 @@ function clearPasswordErrorText() {
         </fieldset> 
         <fieldset class="form-element form-fieldset">
             <label for="userPasswordInput" class="form-label">Пароль:</label>
-            <input id="userPasswordInput" type="password" v-model="userPassword" 
-                @input="clearPasswordErrorText" class="form-input"
+            <input ref="passwordInput" id="userPasswordInput" v-model="userPassword" 
+                @input="clearPasswordErrorText" class="form-input" 
                 :class="{'form-input-error': passwordErrorText}"
             >
             <div class="form-error">{{ passwordErrorText }}</div>
