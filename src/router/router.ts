@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import { userService } from "../services/user";
 
 import Login from '../views/Login.vue';
-import Main from '../views/Main.vue';
+import Main from '../views/MainView.vue';
 import NotFound from '../views/NotFound.vue';
 import Register from '../views/Register.vue';
 
