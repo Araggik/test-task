@@ -14,7 +14,7 @@ function logout() {
 
 <template>
   <div>
-    <input type="button" value="logout" @click="logout">
+    <input type="button" value="logout1" @click="logout">
   </div>
 </template>
 
