@@ -29,7 +29,7 @@ function logout() {
     display: flex;
     justify-content: flex-end;
 
-    padding: 1rem;
+    padding: 0.8rem;
 
     background-color: rgb(158, 158, 158);
 }
@@ -44,6 +44,9 @@ function logout() {
     padding: 0.5rem;
 
     background-color: white;
+
+    border: 2px solid black;
+    border-radius: 0.5rem;
 }
 
 .user-login {
