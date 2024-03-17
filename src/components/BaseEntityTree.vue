@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { Ref, ref, computed, onBeforeUnmount } from 'vue';
+import { Ref, ref, computed, onBeforeUnmount, provide, inject} from 'vue';
 
 import { BaseEntity } from '../entities/base-entity';
+
+import { notificationService } from '../services/notification';
 
 import arrowDownImageUrl from '../assets/arrow-down.svg';
 import BaseEntityMenu from './BaseEntityMenu.vue';
@@ -16,7 +18,11 @@ const emit = defineEmits<{
     (e: 'openTable', value: BaseEntity | undefined): void
 }>();
 
-const isChildren = ref(false);
+let dragData = props.parent ? 
+    inject('dragEntity') as Ref<{entity: BaseEntity, parent: BaseEntity} | null> 
+    : ref<{entity: BaseEntity, parent: BaseEntity} | null>(null);
+
+const isChildren = ref(true);
 
 let menuEntity: Ref<BaseEntity | undefined> | undefined = undefined;
 
@@ -105,12 +111,39 @@ function showMenu(entity: BaseEntity, nx: number, ny: number, parent?: BaseEntit
     y.value = ny;
 }
 
+function onDragStart(event: Event) {
+    if (props.parent) {
+        dragData!.value = {
+            entity: props.entity,
+            parent: props.parent!
+        };
+    } else {
+        event.preventDefault();
+    }
+}
+
+function onDragEnd() {
+    if (dragData!.value) {
+        const constructor = dragData.value.parent.constructor;
+
+        if (props.entity.constructor == constructor) {
+            dragData.value.parent.removeChild(dragData.value.entity.id!);
+
+            props.entity.addChild(dragData.value.entity);
+            
+            notificationService.showNotification('Элемент перемещен');
+        }
+    }
+}
+
 function makeRootActions() {
     if (!props.parent) {
        menuEntity = ref<BaseEntity | undefined>(undefined);
        menuParentEntity = ref<BaseEntity | undefined>(undefined);
 
        listenClick();
+
+       provide('dragEntity', dragData);
     }
 }
 
@@ -128,9 +161,11 @@ function listenClick() {
 </script>
 
 <template>
-    <div>
+    <div v-if="props.entity.childrenMap">
         <div @contextmenu.prevent="onContextMenu" @click="onClickEndNode"
-            class="tree-content" :class="{'tree-content-margin': !isButton}"
+            class="tree-content" :class="{'tree-content-margin': !isButton}" 
+            @dragstart="onDragStart" @dragover.prevent="() => {}"
+            @drop="onDragEnd" draggable="true"
         >
             <input v-if="isButton" type="image" :src="arrowDownImageUrl" @click.stop="toggleChildren"
                 class="tree-button" :class="{'transform': !isChildren}"
@@ -139,7 +174,7 @@ function listenClick() {
                 ({{ entityLabel }}) {{ entityMainField }} 
             </div>
         </div>
-        <div v-if="isChildren && props.entity.childrenMap" class="tree-children">
+        <div v-if="isChildren" class="tree-children">
             <BaseEntityTree v-for="el in props.entity.childrenMap" :entity="el"
                 :parent="props.entity" @open-entity-menu="onOpenMenu"
                 @open-table="onOpenTable"
@@ -156,7 +191,7 @@ function listenClick() {
     display: flex;
     align-items: center;
     
-    height: 2rem;
+    height: 2.5rem;
     width: 12rem;
 
     overflow: hidden;

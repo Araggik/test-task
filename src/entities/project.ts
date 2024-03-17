@@ -144,6 +144,51 @@ export class Project extends BaseEntity {
                         0: new Region({
                             fieldValues: {
                                 'Название': 'Центральный'
+                            },
+                            id: 0,
+                            childrenMap: {
+                                0: new Street({
+                                    fieldValues: {
+                                        'Название': 'ул. Центральная'
+                                    },
+                                    id: 0,
+                                    childrenMap: {
+                                        0: new House({
+                                            fieldValues: {
+                                                'Номер': '37'
+                                            },
+                                            id: 0,
+                                            childrenMap: {
+                                                0: new Entrance({
+                                                    fieldValues: {
+                                                        'Номер': '3'                           
+                                                    },
+                                                    id: 0,
+                                                    childrenMap: {
+                                                        0: new Device({
+                                                            fieldValues: {
+                                                                'Название': 'Устройство 1',
+                                                                'Модель': 'Model 1',
+                                                                'Количество портов': '3',
+                                                                'Активно': true
+                                                            },
+                                                            id: 0
+                                                        }),
+                                                        1: new Device({
+                                                            fieldValues: {
+                                                                'Название': 'Устройство 2',
+                                                                'Модель': 'Model-super',
+                                                                'Количество портов': '4',
+                                                                'Активно': false
+                                                            },
+                                                            id: 1
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
                             }
                         })
                     }

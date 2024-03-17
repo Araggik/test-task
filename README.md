@@ -3,8 +3,15 @@
 ## Примечания
 
 1. Контекстное меню для дерева и таблицы можно вызвать правой кнопкой мыши
+2. Таблица появляется при клике на лист дерева
+
+## Дополнительные задания
+
+1. Drag & drop при перемещении элементов дерева для desktop
+2. Горячие клавиши
+    1. Ctrl + Alt + K - сохранение проекта
 
 ## Запуск проекта
 
-Проект реализован с помощью: Vue.js, TS и Vite. При использовании [VS Code](https://code.visualstudio.com/)рекомендуется установить официальный [плагин](https://marketplace.visualstudio.com/items?itemName=Vue.volar) для Vue.js.
+Проект реализован с помощью: Vue.js, TS и Vite. При использовании [VS Code](https://code.visualstudio.com/) рекомендуется установить официальный [плагин](https://marketplace.visualstudio.com/items?itemName=Vue.volar) для Vue.js.
 

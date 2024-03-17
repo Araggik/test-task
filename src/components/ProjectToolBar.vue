@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onBeforeUnmount } from 'vue';
+
 import { Project } from '../entities/project';
 
 import { notificationService } from '../services/notification';
@@ -13,6 +15,18 @@ function saveProject() {
     Project.saveProject(props.project);
 
     notificationService.showNotification('Проект сохранен');
+}
+
+window.addEventListener('keydown', shortcutHandler);
+
+onBeforeUnmount(() => {
+    window.removeEventListener('keydown', shortcutHandler);
+});
+
+function shortcutHandler(event: KeyboardEvent) {
+    if (event.code == 'KeyK' && event.ctrlKey && event.altKey) {
+        saveProject();
+    }
 }
 </script>
 
