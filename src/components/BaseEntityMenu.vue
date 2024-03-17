@@ -2,6 +2,7 @@
 import { BaseEntity } from '../entities/base-entity';
 
 import { dialogService } from '../services/dialog';
+import { notificationService } from '../services/notification';
 
 import BaseEntityForm from './BaseEntityForm.vue';
 
@@ -30,6 +31,8 @@ function edit() {
 
 function remove() {
     props.parent?.removeChild(props.entity.id!);
+
+    notificationService.showNotification('Объект удален');
 }
 </script>
 

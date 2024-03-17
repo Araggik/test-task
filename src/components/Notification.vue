@@ -38,6 +38,8 @@ notificationService.linkComponent(currentText);
     border: 2px solid black;
     border-radius: 0.5rem;
 
+    background-color: rgb(226, 223, 223);
+
     text-align: center;
 
     animation-name: show-hide;
