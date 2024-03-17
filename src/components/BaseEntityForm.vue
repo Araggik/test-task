@@ -74,7 +74,7 @@ function validate() {
         const isError = !el.validator(model.value[el.label]);
 
         if (isError) {
-            errorMap.value[el.label] = 'Поле не должно быть пустым';
+            errorMap.value[el.label] = 'Поле заполнено неправильно';
 
             isValid = false;
         }
