@@ -12,7 +12,8 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-    (e: 'openEntityMenu', value: {entity: BaseEntity, parent: BaseEntity, event: MouseEvent}): void
+    (e: 'openEntityMenu', value: {entity: BaseEntity, parent: BaseEntity, event: MouseEvent}): void,
+    (e: 'openTable', value: BaseEntity | undefined): void
 }>();
 
 const isChildren = ref(false);
@@ -25,6 +26,10 @@ const x = ref(0);
 
 const y = ref(0);
 
+const isEndNode = checkEndNode();
+
+const entityLabel = receiveEntityLabel();
+
 const entityMainField = computed(() => {
     const constructor = props.entity.constructor as typeof BaseEntity; 
 
@@ -32,15 +37,25 @@ const entityMainField = computed(() => {
 });
 
 const isButton = computed(() => {
+    return (props.entity.childrenCount > 0) && 
+        !isEndNode;
+});
+
+makeRootActions();
+
+function receiveEntityLabel() {
+    const constructor = props.entity.constructor as typeof BaseEntity;
+
+    return constructor.entityLabel[0];
+}
+
+function checkEndNode() {
     const constructor = props.entity.constructor as typeof BaseEntity;
 
     const secondConstructor = constructor.childConstructor.childConstructor;
 
-    return (props.entity.childrenCount > 0) && 
-        (secondConstructor != BaseEntity);
-});
-
-makeRootActions();
+    return secondConstructor == BaseEntity;
+}
 
 function toggleChildren() {
     isChildren.value = !isChildren.value;
@@ -71,7 +86,19 @@ function onOpenMenu(value: {entity: BaseEntity, parent:BaseEntity, event: MouseE
     }
 }
 
+function onClickEndNode() {
+    if (isEndNode) {
+        emit('openTable', props.entity);
+    }
+}
+
+function onOpenTable(value: BaseEntity | undefined) {
+    emit('openTable', value);
+}
+
 function showMenu(entity: BaseEntity, nx: number, ny: number, parent?: BaseEntity) {
+    emit('openTable', undefined);
+
     menuEntity!.value = entity;
     menuParentEntity!.value = parent;
     x.value = nx;
@@ -102,19 +129,20 @@ function listenClick() {
 
 <template>
     <div>
-        <div @contextmenu.prevent="onContextMenu"
+        <div @contextmenu.prevent="onContextMenu" @click="onClickEndNode"
             class="tree-content" :class="{'tree-content-margin': !isButton}"
         >
-            <input v-if="isButton" type="image" :src="arrowDownImageUrl" @click="toggleChildren"
+            <input v-if="isButton" type="image" :src="arrowDownImageUrl" @click.stop="toggleChildren"
                 class="tree-button" :class="{'transform': !isChildren}"
             >
             <div>
-                {{ entityMainField }}
+                ({{ entityLabel }}) {{ entityMainField }} 
             </div>
         </div>
         <div v-if="isChildren && props.entity.childrenMap" class="tree-children">
             <BaseEntityTree v-for="el in props.entity.childrenMap" :entity="el"
                 :parent="props.entity" @open-entity-menu="onOpenMenu"
+                @open-table="onOpenTable"
             >
             </BaseEntityTree>
         </div>

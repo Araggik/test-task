@@ -109,9 +109,21 @@ export class Project extends BaseEntity {
                                                     childrenMap: {
                                                         0: new Device({
                                                             fieldValues: {
-                                                                'Название': 'Устройство 1'
+                                                                'Название': 'Устройство 1',
+                                                                'Модель': 'Model 1',
+                                                                'Количество портов': '3',
+                                                                'Активно': true
                                                             },
                                                             id: 0
+                                                        }),
+                                                        1: new Device({
+                                                            fieldValues: {
+                                                                'Название': 'Устройство 2',
+                                                                'Модель': 'Model-super',
+                                                                'Количество портов': '4',
+                                                                'Активно': false
+                                                            },
+                                                            id: 1
                                                         })
                                                     }
                                                 })

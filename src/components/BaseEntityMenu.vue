@@ -35,7 +35,7 @@ function remove() {
 
 <template>
     <menu class="menu" :style="{top: `${y + dy}px`, left: `${x}px`}">
-        <li class="menu-item">
+        <li v-if="entity.childrenMap" class="menu-item">
             <input type="button" value="Добавить" @click="add" class="menu-input">
         </li>
         <li class="menu-item">
