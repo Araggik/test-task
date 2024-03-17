@@ -22,6 +22,12 @@ class DialogService {
             this.#innerComponentProps.value = props;
         }
     }
+
+    hideDialog() {
+        if (this.#isVisible) {
+            this.#isVisible.value = false;
+        }
+    }
 }
 
 export const dialogService = new DialogService();

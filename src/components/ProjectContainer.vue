@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { Project } from '../entities/project.ts';
 import BaseEntityTree from './BaseEntityTree.vue';
 
 import ProjectToolBar from './ProjectToolBar.vue';
 import Splitter from './Splitter.vue';
 
-const project = Project.loadProject();
+const project = ref(Project.loadProject());
 </script>
 
 <template>

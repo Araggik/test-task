@@ -60,8 +60,6 @@ export class Project extends BaseEntity {
         if (projectStr) {
             const projectObj = JSON.parse(projectStr);
 
-            console.log('Пошел парсить');
-
             return Project.#createEntity(Project, projectObj);
         } else {
             return this.#defaultProject;
@@ -121,6 +119,19 @@ export class Project extends BaseEntity {
                                         })
                                     }
                                 })
+                            }
+                        })
+                    }
+                }),
+                1: new City({
+                    fieldValues: {
+                        'Название': 'Москва'
+                    },
+                    id: 1,
+                    childrenMap: {
+                        0: new Region({
+                            fieldValues: {
+                                'Название': 'Центральный'
                             }
                         })
                     }
