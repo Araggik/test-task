@@ -67,13 +67,17 @@ function receiveWidth() {
 <template>
     <div class="flex-container" ref="flexContainer">
       <div class="flex-element" :style="{width: `${width * 100}%`}">
+          <slot name="start">
 
+          </slot>
       </div>
       <div class="separator" @pointerdown="startDrag" @pointermove="moveDrag">
 
       </div>
       <div class="flex-element flex-end">
+          <slot name="end">
 
+          </slot>
       </div>
     </div>
 </template>
@@ -99,6 +103,8 @@ function receiveWidth() {
 }
 
 .flex-element {
+    padding: 0.5rem;
+
     border: 2px solid black;
     border-radius: 0.5rem;
 

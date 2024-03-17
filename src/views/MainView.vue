@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import MainHeader from '../components/MainHeader.vue';
 
-import Splitter from '../components/Splitter.vue';
+import ProjectContainer from '../components/ProjectContainer.vue';
 </script>
 
 <template>
   <div class="main-view">
       <MainHeader></MainHeader>
       <main class="main-content">
-        <Splitter></Splitter>
+        <ProjectContainer></ProjectContainer>
       </main>
   </div>
 </template>
@@ -23,6 +23,7 @@ import Splitter from '../components/Splitter.vue';
   flex-grow: 1;
 
   display: flex;
+  flex-direction: column;
   align-items: stretch;
 }
 </style>

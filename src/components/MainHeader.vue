@@ -18,7 +18,7 @@ function logout() {
         <div class="user-container">
             <div clas="user-login">{{ userService.userLogin }}</div>
             <input type="image" :src="logoutImageUrl" @click="logout"
-                alt="" title="Выход"
+                alt="" title="Выход" class="user-logout"
             >
         </div>
     </header>
@@ -54,5 +54,11 @@ function logout() {
 
     overflow-x: hidden;
     text-overflow: ellipsis;
+}
+
+.user-logout:hover {
+    background-color: rgb(158, 158, 158);
+
+    border-radius: 0.2rem;
 }
 </style>

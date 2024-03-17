@@ -141,7 +141,7 @@ function clearPasswordErrorText() {
         <fieldset class="form-element form-fieldset">
             <label for="userPasswordInput" class="form-label">Пароль:</label>
             <input ref="passwordInput" id="userPasswordInput" v-model="userPassword" 
-                @input="clearPasswordErrorText" class="form-input" 
+                @input="clearPasswordErrorText" type="password" class="form-input" 
                 :class="{'form-input-error': passwordErrorText}"
             >
             <div class="form-error">{{ passwordErrorText }}</div>
